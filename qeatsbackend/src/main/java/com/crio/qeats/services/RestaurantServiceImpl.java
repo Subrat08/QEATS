@@ -37,8 +37,7 @@ public class RestaurantServiceImpl implements RestaurantService {
   // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI - Implement findAllRestaurantsCloseby.
   // Check RestaurantService.java file for the interface contract.
   @Override
-  public GetRestaurantsResponse findAllRestaurantsCloseBy(
-      GetRestaurantsRequest getRestaurantsRequest, LocalTime currentTime) {
+  public GetRestaurantsResponse findAllRestaurantsCloseBy(GetRestaurantsRequest getRestaurantsRequest, LocalTime currentTime) {
 
 
      return null;

@@ -24,8 +24,7 @@ public interface RestaurantService {
    * @return GetRestaurantsResponse object containing a list of open restaurants or an
    *     empty list if none fits the criteria.
    */
-  GetRestaurantsResponse findAllRestaurantsCloseBy(
-      GetRestaurantsRequest getRestaurantsRequest, LocalTime currentTime);
+  GetRestaurantsResponse findAllRestaurantsCloseBy(GetRestaurantsRequest getRestaurantsRequest, LocalTime currentTime);
 
 
 }
