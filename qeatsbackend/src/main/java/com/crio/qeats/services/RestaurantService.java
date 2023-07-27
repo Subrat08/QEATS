@@ -25,6 +25,5 @@ public interface RestaurantService {
    *     empty list if none fits the criteria.
    */
   GetRestaurantsResponse findAllRestaurantsCloseBy(GetRestaurantsRequest getRestaurantsRequest, LocalTime currentTime);
-
-
+  GetRestaurantsResponse findAllRestaurantsCloseBy(GetRestaurantsRequest getRestaurantsRequest,LocalTime currentTime, Double servingRadiusInKms)
 }

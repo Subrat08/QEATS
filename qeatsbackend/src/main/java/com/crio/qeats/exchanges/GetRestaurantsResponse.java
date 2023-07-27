@@ -11,6 +11,8 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI
 //  Implement GetRestaurantsResponse.
@@ -48,8 +50,13 @@ import lombok.NoArgsConstructor;
 //  ]
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GetRestaurantsResponse {
 
+  // List of restaurants to be included in the response.
+  private List<Restaurant> restaurants;
 }
 
 // }
