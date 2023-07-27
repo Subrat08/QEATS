@@ -8,6 +8,7 @@
 package com.crio.qeats.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -64,11 +65,15 @@ class RestaurantServiceTest {
   }
 
   private String getServingRadius(List<Restaurant> restaurants, LocalTime timeOfService) {
-    when(restaurantRepositoryServiceMock.findAllRestaurantsCloseBy(any(Double.class), any(Double.class), any(LocalTime.class),
+    when(restaurantRepositoryServiceMock
+        .findAllRestaurantsCloseBy(any(Double.class), any(Double.class), any(LocalTime.class),
             any(Double.class)))
         .thenReturn(restaurants);
 
-    GetRestaurantsResponse allRestaurantsCloseBy = restaurantService.findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0),timeOfService); //LocalTime.of(19,00));
+    GetRestaurantsResponse allRestaurantsCloseBy = restaurantService
+        .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0),
+            timeOfService); //LocalTime.of(19,00));
+    //System.out.print(allRestaurantsCloseBy.getRestaurants());
 
     assertEquals(2, allRestaurantsCloseBy.getRestaurants().size());
     assertEquals("11", allRestaurantsCloseBy.getRestaurants().get(0).getRestaurantId());
@@ -84,7 +89,8 @@ class RestaurantServiceTest {
 
   @Test
   void peakHourServingRadiusOf3KmsAt7Pm() throws IOException {
-    assertEquals(getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(19, 0)), "3.0");
+    assertEquals(getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(19, 00)), "3.0");
+    //assertEquals(getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(19, 0)), "3.0");
   }
 
 
@@ -96,12 +102,13 @@ class RestaurantServiceTest {
     // In short, we need to test:
     // 1. If the mocked service methods are being called
     // 2. If the expected restaurants are being returned
-    // HINT: Use the `loadRestaurantsDuringNormalHours` utility method to speed things up
+    // HINT: Use the `loadRestaurantsDuringNormalHours` 
+    //. utility method to speed things up
     assertEquals(getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(18, 00)), "5.0");
+    // assertFalse(true);
+
+
   }
-
-
-
   
   private List<Restaurant> loadRestaurantsDuringNormalHours() throws IOException {
     String fixture =
