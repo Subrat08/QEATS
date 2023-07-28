@@ -59,4 +59,3 @@ public class GetRestaurantsResponse {
   private List<Restaurant> restaurants;
 }
 
-// }

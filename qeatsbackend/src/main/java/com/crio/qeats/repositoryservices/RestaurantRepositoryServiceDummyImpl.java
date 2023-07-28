@@ -2,8 +2,8 @@
 package com.crio.qeats.repositoryservices;
 
 import com.crio.qeats.dto.Restaurant;
-import com.crio.qeats.utils.FixtureHelpers;
 import com.crio.qeats.utils.GeoUtils;
+import com.crio.qeats.utils.FixtureHelpers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -27,6 +27,7 @@ public class RestaurantRepositoryServiceDummyImpl implements RestaurantRepositor
     });
   }
 
+
   // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI - Use this dummy implementation.
   // This function returns a list of restaurants in any lat/long of your choice randomly.
   // It will load some dummy restaurants and change their latitude/longitude near
@@ -45,6 +46,7 @@ public class RestaurantRepositoryServiceDummyImpl implements RestaurantRepositor
       restaurant.setLatitude(latitude + ThreadLocalRandom.current().nextDouble(0.000001, 0.2));
       restaurant.setLongitude(longitude + ThreadLocalRandom.current().nextDouble(0.000001, 0.2));
     }
+
     for (Restaurant res : restaurantList) {
       double restaurantLat = res.getLatitude();
       double restaurantLon = res.getLongitude();
@@ -75,6 +77,5 @@ public class RestaurantRepositoryServiceDummyImpl implements RestaurantRepositor
     return result;
   }
 
-
-
 }
+

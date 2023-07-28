@@ -73,8 +73,6 @@ class RestaurantServiceTest {
     GetRestaurantsResponse allRestaurantsCloseBy = restaurantService
         .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0),
             timeOfService); //LocalTime.of(19,00));
-    //System.out.print(allRestaurantsCloseBy.getRestaurants());
-
     assertEquals(2, allRestaurantsCloseBy.getRestaurants().size());
     assertEquals("11", allRestaurantsCloseBy.getRestaurants().get(0).getRestaurantId());
     assertEquals("12", allRestaurantsCloseBy.getRestaurants().get(1).getRestaurantId());
@@ -96,7 +94,6 @@ class RestaurantServiceTest {
 
   @Test
   void normalHourServingRadiusIs5Kms() throws IOException {
-
     // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI
     // We must ensure the API retrieves only restaurants that are closeby and are open
     // In short, we need to test:
@@ -109,7 +106,6 @@ class RestaurantServiceTest {
 
 
   }
-  
   private List<Restaurant> loadRestaurantsDuringNormalHours() throws IOException {
     String fixture =
         FixtureHelpers.fixture(FIXTURES + "/normal_hours_list_of_restaurants.json");

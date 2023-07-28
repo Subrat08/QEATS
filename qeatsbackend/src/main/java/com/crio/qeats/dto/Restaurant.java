@@ -8,6 +8,7 @@
 package com.crio.qeats.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
