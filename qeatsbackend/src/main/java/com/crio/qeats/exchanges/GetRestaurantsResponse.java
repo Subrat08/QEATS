@@ -57,5 +57,6 @@ public class GetRestaurantsResponse {
 
   // List of restaurants to be included in the response.
   private List<Restaurant> restaurants;
+
 }
 

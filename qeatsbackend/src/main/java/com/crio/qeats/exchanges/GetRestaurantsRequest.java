@@ -39,6 +39,5 @@ public class GetRestaurantsRequest {
     private String searchFor;
 
     public GetRestaurantsRequest(Double d, Double e) {this.latitude=d; this.longitude=e;}
-
 }
 

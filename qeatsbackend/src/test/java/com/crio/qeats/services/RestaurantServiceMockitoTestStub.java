@@ -44,6 +44,7 @@ public class RestaurantServiceMockitoTestStub {
 
   protected static final String FIXTURES = "fixtures/exchanges";
 
+
   //protected ObjectMapper objectMapper = new ObjectMapper();
   
   @InjectMocks
@@ -74,16 +75,20 @@ public class RestaurantServiceMockitoTestStub {
 
   // protected RestaurantRepositoryService restaurantRepositoryServiceMock;
 
+  protected RestaurantServiceImpl restaurantService;
+
+  protected RestaurantRepositoryService restaurantRepositoryServiceMock;
+
   public void initializeRestaurantObjects() throws IOException {
     String fixture =
         FixtureHelpers.fixture(FIXTURES + "/mocking_list_of_restaurants.json");
     Restaurant[] restaurants = objectMapper.readValue(fixture, Restaurant[].class);
+
     this.restaurant1 = restaurants[0];
     this.restaurant2 = restaurants[1];
     this.restaurant3 = restaurants[2];
     this.restaurant4 = restaurants[3];
     this.restaurant5 = restaurants[4];
-    //System.out.println(this.restaurant2.getId());
     // TODO CRIO_TASK_MODULE_MOCKITO
     //  What to do with this Restaurant[] ? Looks unused?
     //  Look for the "assert" statements in the tests
@@ -109,10 +114,6 @@ public class RestaurantServiceMockitoTestStub {
         .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0),
             LocalTime.of(3, 0));
 
-    // System.out.println(allRestaurantsCloseBy.getRestaurants().size());
-    // System.out.println(allRestaurantsCloseBy.getRestaurants());
-    // System.out.println(allRestaurantsCloseBy.getRestaurants());
-
     assertEquals(2, allRestaurantsCloseBy.getRestaurants().size());
     assertEquals("11", allRestaurantsCloseBy.getRestaurants().get(0).getRestaurantId());
     assertEquals("12", allRestaurantsCloseBy.getRestaurants().get(1).getRestaurantId());
@@ -127,6 +128,7 @@ public class RestaurantServiceMockitoTestStub {
 
   @Test
   public void  testFindNearbyWithin3km() throws IOException {
+
     initializeRestaurantObjects();
     List<Restaurant> restaurantList1 = Arrays.asList(restaurant1,restaurant4);
     List<Restaurant> restaurantList2 = Arrays.asList(restaurant2,restaurant4);
@@ -173,3 +175,4 @@ public class RestaurantServiceMockitoTestStub {
   }
 
 }
+

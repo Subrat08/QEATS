@@ -89,6 +89,7 @@ class RestaurantServiceTest {
   void peakHourServingRadiusOf3KmsAt7Pm() throws IOException {
     assertEquals(getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(19, 00)), "3.0");
     //assertEquals(getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(19, 0)), "3.0");
+
   }
 
 
@@ -106,6 +107,7 @@ class RestaurantServiceTest {
 
 
   }
+
   private List<Restaurant> loadRestaurantsDuringNormalHours() throws IOException {
     String fixture =
         FixtureHelpers.fixture(FIXTURES + "/normal_hours_list_of_restaurants.json");

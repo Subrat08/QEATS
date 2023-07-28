@@ -54,10 +54,9 @@ public class RestaurantController {
     getRestaurantsResponse = restaurantService.findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
     log.info("getRestaurants returned {}", getRestaurantsResponse);
     //CHECKSTYLE:ON
-
     return ResponseEntity.ok().body(getRestaurantsResponse);
   }
-
+}
 
   // TIP(MODULE_MENUAPI): Model Implementation for getting menu given a restaurantId.
   // Get the Menu for the given restaurantId
@@ -91,16 +90,3 @@ public class RestaurantController {
   //          : 5xx, if server side error.
   // Eg:
   // curl -X GET "http://localhost:8081/qeats/v1/menu?restaurantId=11"
-
-
-
-
-
-
-
-
-
-
-
-}
-
