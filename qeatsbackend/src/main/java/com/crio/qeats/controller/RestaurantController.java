@@ -52,6 +52,7 @@ public class RestaurantController {
 
     //CHECKSTYLE:OFF
     getRestaurantsResponse = restaurantService.findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
+
     log.info("getRestaurants returned {}", getRestaurantsResponse);
     //CHECKSTYLE:ON
     return ResponseEntity.ok().body(getRestaurantsResponse);

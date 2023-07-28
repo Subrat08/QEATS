@@ -91,8 +91,10 @@ public class RestaurantRepositoryServiceImpl implements RestaurantRepositoryServ
       double restaurantLon = res.getLongitude();
       LocalTime openAt = LocalTime.parse(res.getOpensAt());
       LocalTime closeAt = LocalTime.parse(res.getClosesAt());
-      double distanceKm = GeoUtils.findDistanceInKm(
-                            latitude, longitude, restaurantLat, restaurantLon);
+      String sanitizedName = res.getName().replaceAll("[Â©éí]", "e");
+      res.setName(sanitizedName);
+    
+      double distanceKm = GeoUtils.findDistanceInKm(latitude, longitude, restaurantLat, restaurantLon);
       if (Double.compare(distanceKm, servingRadiusInKms) > 0) {
         continue;
       }
