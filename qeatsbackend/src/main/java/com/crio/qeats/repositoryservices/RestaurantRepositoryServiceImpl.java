@@ -25,11 +25,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Provider;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -49,6 +52,9 @@ public class RestaurantRepositoryServiceImpl implements RestaurantRepositoryServ
   @Autowired
   private Provider<ModelMapper> modelMapperProvider;
 
+  @Autowired
+  private RestaurantRepository dataSet;
+
   private boolean isOpenNow(LocalTime time, RestaurantEntity res) {
     LocalTime openingTime = LocalTime.parse(res.getOpensAt());
     LocalTime closingTime = LocalTime.parse(res.getClosesAt());
@@ -62,22 +68,55 @@ public class RestaurantRepositoryServiceImpl implements RestaurantRepositoryServ
   // 2. Remember to keep the precision of GeoHash in mind while using it as a key.
   // Check RestaurantRepositoryService.java file for the interface contract.
   public List<Restaurant> findAllRestaurantsCloseBy(Double latitude,
-      Double longitude, LocalTime currentTime, Double servingRadiusInKms) {
+      Double longitude, LocalTime currentTime, Double servingRadiusInKms) 
+      throws NullPointerException {
 
-    List<Restaurant> restaurants = null;
+    List<Restaurant> restaurants = new ArrayList<>();
+    List<RestaurantEntity> tmp = new ArrayList<RestaurantEntity>();
+    List<Restaurant> myList = new ArrayList<Restaurant>();
+    try {
+      tmp = dataSet.findAll();
+      
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    }
+    ModelMapper mapperClass = modelMapperProvider.get();
+    for (RestaurantEntity ent : tmp) {
+      restaurants.add(mapperClass.map(ent, Restaurant.class));
+    }
+    // System.out.println();
 
+    for (Restaurant res : restaurants) {
+      double restaurantLat = res.getLatitude();
+      double restaurantLon = res.getLongitude();
+      LocalTime openAt = LocalTime.parse(res.getOpensAt());
+      LocalTime closeAt = LocalTime.parse(res.getClosesAt());
+      double distanceKm = GeoUtils.findDistanceInKm(
+                            latitude, longitude, restaurantLat, restaurantLon);
+      if (Double.compare(distanceKm, servingRadiusInKms) > 0) {
+        continue;
+      }
+      boolean result = isValidTime(currentTime, openAt, closeAt);
+      if (result == false) {
+        continue;
+      }
+      myList.add(res);
 
-      //CHECKSTYLE:OFF
-      //CHECKSTYLE:ON
-
-
-    return restaurants;
+    }
+    return myList;
   }
 
-
-
-
-
+  private boolean isValidTime(LocalTime current, 
+                              LocalTime open, LocalTime close) {
+    boolean result = false;
+    if (current.equals(open) || current.equals(close)) {
+      result = true;
+    }
+    if (current.isAfter(open) && current.isBefore(close)) {
+      result = true;
+    }
+    return result;
+  }
 
 
 
@@ -104,4 +143,3 @@ public class RestaurantRepositoryServiceImpl implements RestaurantRepositoryServ
 
 
 }
-
